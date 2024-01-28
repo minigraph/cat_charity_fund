@@ -28,7 +28,7 @@ class CRUDCharityProject(CRUDBase):
     ):
         donations = await session.execute(
             select(CharityProject).where(
-                CharityProject.fully_invested is False
+                CharityProject.fully_invested == False
             ).order_by(CharityProject.create_date)
         )
         return donations.scalars().all()

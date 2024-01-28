@@ -14,7 +14,7 @@ from app.models.user import User
 from app.schemas.user import UserCreate
 
 LIFETIME_TOKEN = 3600
-MIN_LEN_PASSWORD = 3
+MIN_LEN_PWD = 3
 
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
@@ -44,9 +44,9 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         password: str,
         user: Union[UserCreate, User],
     ) -> None:
-        if len(password) < MIN_LEN_PASSWORD:
+        if len(password) < MIN_LEN_PWD:
             raise InvalidPasswordException(
-                reason=f'Password should be at least {MIN_LEN_PASSWORD} chars'
+                reason=f'Password should be at least {MIN_LEN_PWD} characters'
             )
         if user.email in password:
             raise InvalidPasswordException(
