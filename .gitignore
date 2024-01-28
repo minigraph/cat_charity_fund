@@ -136,6 +136,3 @@ dmypy.json
 
 # database files
 *.db
-
-# alembic migrations
-alembic/versions
