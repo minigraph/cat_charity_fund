@@ -130,3 +130,12 @@ dmypy.json
 
 # .idea
 .idea
+
+# .vscode
+.vscode
+
+# database files
+*.db
+
+# alembic migrations
+alembic/versions
