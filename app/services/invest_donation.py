@@ -21,12 +21,11 @@ async def divided_donations(session: AsyncSession):
     if not projects:
         return
 
-    change_objects, i, count_projects = [], 0, len(projects)
+    change_objects = []
     for donation in donations:
         free_sum = donation.full_amount - donation.invested_amount
 
-        for i in range(count_projects):
-            project = projects[i]
+        for project in projects:
             if project in change_objects:
                 change_objects.remove(project)
 
@@ -38,13 +37,14 @@ async def divided_donations(session: AsyncSession):
                 change_objects.append(
                     await close_object(project, project.full_amount)
                 )
-                i += 1
+                projects.remove(project)
                 break
             elif free_sum > need_sum:
                 free_sum -= need_sum
                 change_objects.append(
                     await close_object(project, project.full_amount)
                 )
+                projects.remove(project)
             else:
                 project.invested_amount += free_sum
                 change_objects.append(project)

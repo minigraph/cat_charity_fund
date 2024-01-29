@@ -44,8 +44,7 @@ async def get_all_charity_projects(
 ):
     """Получить все благотворительные проекты."""
 
-    all_projects = await charity_project_crud.get_multi(session)
-    return all_projects
+    return await charity_project_crud.get_multi(session)
 
 
 @router.patch(
@@ -72,10 +71,9 @@ async def partially_update_charity_project(
             obj_in.full_amount, charity_project.invested_amount
         )
 
-    charity_project = await charity_project_crud.update(
+    return await charity_project_crud.update(
         charity_project, obj_in, session
     )
-    return charity_project
 
 
 @router.delete(
@@ -91,6 +89,5 @@ async def remove_charity_project(
 
     charity_project = await check_charity_project_before_delete(
         charity_project_id, session)
-    charity_project = await charity_project_crud.remove(
+    return await charity_project_crud.remove(
         charity_project, session)
-    return charity_project

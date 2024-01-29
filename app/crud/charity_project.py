@@ -1,4 +1,3 @@
-# app/crud/meeting_room.py
 from typing import Optional
 
 from sqlalchemy import select
@@ -20,8 +19,7 @@ class CRUDCharityProject(CRUDBase):
                 CharityProject.name == project_name
             )
         )
-        db_project_id = db_project_id.scalars().first()
-        return db_project_id
+        return db_project_id.scalars().first()
 
     async def get_active_projects(
             self, session: AsyncSession
